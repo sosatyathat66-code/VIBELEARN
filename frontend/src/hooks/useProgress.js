@@ -1,21 +1,12 @@
 import { useState, useEffect, useCallback, useRef } from "react";
-import { useAuth } from "@clerk/clerk-react";
+import { useAuth } from "../context/AuthContext.jsx";
 import { progressService } from "../services/progressService.js";
 
 const LOCAL_STORAGE_COMPLETED = "vibelearn_completed_lessons";
 const LOCAL_STORAGE_RESUME = "vibelearn_resume_timestamps";
 
 export function useProgress() {
-  let getToken = null;
-  let userId = null;
-
-  try {
-    const auth = useAuth();
-    getToken = auth.getToken;
-    userId = auth.userId;
-  } catch {
-    // Graceful fallback when ClerkProvider is absent in dev mode
-  }
+  const { getToken, userId } = useAuth();
 
   const [completedLessons, setCompletedLessons] = useState(() => {
     try {

@@ -8,7 +8,7 @@ import {
   CheckCircle2,
   ArrowRight,
 } from "lucide-react";
-import { useUser, SignedIn, SignedOut, SignInButton } from "@clerk/clerk-react";
+import { useUser, SignedIn, SignedOut, SignInButton } from "../context/AuthContext.jsx";
 import ProgressBar from "../components/common/ProgressBar.jsx";
 import { MOCK_COURSES } from "../services/mockData.js";
 import { useProgress } from "../hooks/useProgress.js";

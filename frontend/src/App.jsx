@@ -1,6 +1,6 @@
 import React from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import { ClerkProvider } from "@clerk/clerk-react";
+import { AuthProvider } from "./context/AuthContext.jsx";
 
 import Navbar from "./components/layout/Navbar.jsx";
 import Footer from "./components/layout/Footer.jsx";
@@ -8,12 +8,6 @@ import CatalogPage from "./pages/CatalogPage.jsx";
 import CourseDetailPage from "./pages/CourseDetailPage.jsx";
 import LessonPage from "./pages/LessonPage.jsx";
 import MyLearningPage from "./pages/MyLearningPage.jsx";
-
-const clerkPublishableKey = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY;
-const isValidClerkKey =
-  clerkPublishableKey &&
-  clerkPublishableKey.startsWith("pk_") &&
-  !clerkPublishableKey.includes("your_clerk");
 
 function AppRoutes() {
   return (
@@ -39,20 +33,12 @@ function AppRoutes() {
 }
 
 export default function App() {
-  if (isValidClerkKey) {
-    return (
-      <ClerkProvider publishableKey={clerkPublishableKey}>
-        <BrowserRouter>
-          <AppRoutes />
-        </BrowserRouter>
-      </ClerkProvider>
-    );
-  }
-
-  // Graceful development mode without live Clerk key
   return (
-    <BrowserRouter>
-      <AppRoutes />
-    </BrowserRouter>
+    <AuthProvider>
+      <BrowserRouter>
+        <AppRoutes />
+      </BrowserRouter>
+    </AuthProvider>
   );
 }
+

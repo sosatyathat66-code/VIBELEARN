@@ -7,7 +7,7 @@ import {
   SignInButton,
   UserButton,
   useUser,
-} from "@clerk/clerk-react";
+} from "../../context/AuthContext.jsx";
 
 export default function Navbar() {
   const location = useLocation();
